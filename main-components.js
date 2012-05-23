@@ -1,6 +1,6 @@
 function ComboRespositoryList(){
 	var returnObj = Ext.create('Sesame.RepositoryList.Combobox', {
-		id: 'RESPOSITORY_COMBO'
+		id: 'RESPOSITORY_COMBO',
 	    fieldLabel: 'Select your repository',
 	    queryMode: 'local',
 	    displayField: 'id',
