@@ -19,14 +19,10 @@ function CmpTips(comboBox){
 		readOnly: true,
 		labelWidth: 150,
 	    width: 400,
-	    fieldLabel: 'Title',
-	    style: {
-	    	'color': 'white'
-	    },
+	    fieldLabel: 'Description',
 	    fieldStyle: {
 	    	'border': '0px',
-	    	'background': 'none',
-	    	'font-style': 'italic'
+	    	'background': 'none'
 	    }
 	});
 	

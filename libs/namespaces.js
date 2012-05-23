@@ -1,7 +1,8 @@
-Ext.define('Sesame.RepositoryList',{
-	constructor: function(repositoryListUrl){
-		if(repositoryListUrl){
-			this._setDataStore(repositoryListUrl);
+Ext.define('Sesame.Repository.Namespaces', {
+	constructor: function(repositoryUrl){
+		if(repositoryUrl){
+			this._queryUrl = repositoryUrl + '/namespaces';
+			this._setDataStore(this._queryUrl);			
 		}
 	},
 	_setDataStore: function(url){
@@ -15,7 +16,8 @@ Ext.define('Sesame.RepositoryList',{
 		        that.json = that._getJsonData(response.responseXML);
 		        that.store = that._getStore(that.json);
 		    }
-		});		
+		});
+
 	},
 	_getJsonData: function(xml){
 		var dq = Ext.DomQuery;
@@ -29,22 +31,21 @@ Ext.define('Sesame.RepositoryList',{
 			}
 		}
 		
-		add2Json('id', dq.select('binding[name="id"] > literal', xml));
-		add2Json('title', dq.select('binding[name="title"] > literal', xml));
-		add2Json('uri', dq.select('binding[name="uri"] > uri', xml));
+		add2Json('prefix', dq.select('binding[name="prefix"] > literal', xml));
+		add2Json('namespace', dq.select('binding[name="namespace"] > literal', xml));
 		
-		return json;
+		return json;		
 	},
 	_getStore: function(json){
 		var that = this;
 		
-		Ext.define('RepositoryList', {
+		Ext.define('Namespaces', {
 		    extend: 'Ext.data.Model',
-		    fields: ['id', 'title', 'uri']
+		    fields: ['prefix', 'namespace']
 		});
 
 		var store = Ext.create('Ext.data.Store', {
-		    model: 'RepositoryList',
+		    model: 'Namespaces',
 		    data: that.json,
 		    proxy: {
 		        type: 'memory',
@@ -54,23 +55,7 @@ Ext.define('Sesame.RepositoryList',{
 		        }
 		    }
 		});
-		return store;
+		return store;		
 	}
+	
 });
-
-
-Ext.define('Sesame.RepositoryList.Combobox',{
-	extend: 'Ext.form.ComboBox',
-	alias: 'widget.comborepoitory',
-	initComponent: function(){
-		if(this.hasOwnProperty("repositoryUrl")){
-			this.repositoryList = new Sesame.RepositoryList(this.repositoryUrl);
-			this.store = this.repositoryList.store;
-		}
-		
-		this.callParent();
-	},
-
-});
-
-
