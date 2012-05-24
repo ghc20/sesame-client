@@ -1,3 +1,10 @@
+/* Define the all the components in the view port
+ * All the functions return component objects which can be placed in the view port directly 
+ * */
+
+
+/* Create a combo box listing all the repositories
+ * */
 function ComboRespositoryList(){
 	var returnObj = Ext.create('Sesame.RepositoryList.Combobox', {
 		id: 'RESPOSITORY_COMBO',
@@ -13,6 +20,10 @@ function ComboRespositoryList(){
 	return returnObj;
 }
 
+/* Create a text field to display the description for the combobox
+ * Arguments:
+ * comboBox -- the combo box component with the description 
+ * */
 function CmpTips(comboBox){
 	var returnObj = Ext.create('Ext.form.field.Text', {
 		id: 'COMBO_TIPS',
